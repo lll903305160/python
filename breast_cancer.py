@@ -25,8 +25,23 @@ plt.show()
 
 #根据热力图判定相关性高的因素组，组中保留1个因素即可。最终目的是让所选择的特征尽量独立、互不相关，增加模型泛化能力
 features_remain = ['radius_mean','texture_mean', 'smoothness_mean','compactness_mean','symmetry_mean', 'fractal_dimension_mean']
+from sklearn.model_selection import train_test_split
 train,test = train_test_split(data,test_size=0.3)
 train_X = train[features_remain]
+train_y = train['diagnosis']
+test_X = test[features_remain]
+test_y = test['diagnosis']
+
+#对数据进行归一标准化处理
+from sklearn.preprocessing import StandardScaler
 ss = StandardScaler()
 train_X = ss.fit_transform(train_X)
 test_X = ss.transform(test_X)
+
+#开始训练
+import sklearn.svm as svm
+from sklearn import metrics
+model = svm.SVC()
+model.fit(train_X,train_y)
+prediction = model.predict(test_X)
+metrics.accuracy_score(prediction,test_y)
