@@ -2,12 +2,12 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-import itertools #迭代工具？
+import itertools 
 from sklearn.linear_model import LogisticRegression #算法核心
 from sklearn.model_selection import train_test_split #数据集划分
-from sklearn.metrics import confusion_matrix,precision_recall_curve  #引入混淆矩阵 以及精确率召回率曲线
-from sklearn.preprocessing import StandardScaler #数据标准化处理工具
-import warnings #?
+from sklearn.metrics import confusion_matrix,precision_recall_curve  #引入混淆矩阵及精确率召回率曲线
+from sklearn.preprocessing import StandardScaler 
+import warnings 
 warnings.filterwarnings('ignore') #忽略警告消息
 
 #数据加载
@@ -54,8 +54,7 @@ train_x,test_x,train_y,test_y = train_test_split(x,y,test_size=0.1,random_state=
 clf = LogisticRegression()
 clf.fit(train_x,train_y)
 predict_y = clf.predict(test_x)
-#d预测样本的置信分数
-score_y = clf.decision_function(test_x)
+
 
 # 混淆矩阵可视化
 def plot_confusion_matrix(cm, classes, normalize = False, title = 'Confusion matrix', cmap = plt.cm.Blues):
@@ -76,11 +75,9 @@ def plot_confusion_matrix(cm, classes, normalize = False, title = 'Confusion mat
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
     plt.show()
-
 cm = confusion_matrix(test_y,predict_y)
 class_names = [0,1]
 plot_confusion_matrix(cm,classes = class_names, title = '逻辑回归混淆矩阵')
-print(cm)
 
 #显示模型评估分数
 def show_metrics():
